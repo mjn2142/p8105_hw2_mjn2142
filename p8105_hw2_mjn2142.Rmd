@@ -18,6 +18,7 @@ library(tidyverse)
 trash_wheel_data = readxl::read_excel("./trash_wheel.xlsx", sheet = "Mr. Trash Wheel") %>%
   janitor::clean_names() %>%
   select(dumpster:homes_powered, -month, -year, -date) %>%
+  na.omit() %>% 
   mutate(
     sports_balls = round(sports_balls, digits = 0)
   )
