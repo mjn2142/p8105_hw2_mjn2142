@@ -1,0 +1,25 @@
+---
+title: "p8105_hw2_mjn2142"
+author: "Matthew Neky"
+date: "10/5/2021"
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+
+### Problem 1
+
+
+
+```{r, message = FALSE}
+trash_wheel_data = readxl::read_excel("./trash_wheel.xlsx", sheet = "Mr. Trash Wheel") %>%
+  janitor::clean_names() %>%
+  select(dumpster:homes_powered, -month, -year, -date) %>%
+  mutate(
+    sports_balls = round(sports_balls, digits = 0)
+  )
+```
+
