@@ -30,7 +30,7 @@ trash_wheel_data = readxl::read_excel("./trash_wheel.xlsx", sheet = "Mr. Trash W
 ## Cleaning pols-month data
 
 ```{r}
-pols_month_data = read.csv("./fivethirtyeight_datasets/pols-month.csv") %>% 
+pols_month_data = read_csv("./fivethirtyeight_datasets/pols-month.csv") %>% 
   separate(
     col = mon,
     into = c('year', 'month', 'day'),
@@ -62,4 +62,19 @@ snp_data = read_csv("./fivethirtyeight_datasets/snp.csv") %>%
   ) %>% 
   relocate(year, month)
 ```
+
+## Clean unemployment data
+
+```{r}
+unemployment_data = read_csv("./fivethirtyeight_datasets/unemployment.csv") %>% 
+  pivot_longer(
+    Jan:Dec,
+    names_to = "month",
+    values_to = "unemployment_level"
+  ) %>% 
+  rename(year = Year)
+```
+
+
+
 
