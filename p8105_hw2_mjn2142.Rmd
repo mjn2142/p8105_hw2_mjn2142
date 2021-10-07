@@ -41,8 +41,10 @@ pols_month_data = read.csv("./fivethirtyeight_datasets/pols-month.csv") %>%
     fill = 'warn'
   ) %>% 
   mutate(
-    month = month.abb[month]
-    )
+    month = month.abb[month],
+    president = recode(prez_gop, '1' = "gop", '0' = "dem")
+    ) %>% 
+  select(-day, -prez_gop, -prez_dem)
 ```
 
 
