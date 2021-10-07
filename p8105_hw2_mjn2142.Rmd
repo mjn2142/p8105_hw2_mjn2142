@@ -47,4 +47,19 @@ pols_month_data = read.csv("./fivethirtyeight_datasets/pols-month.csv") %>%
   select(-day, -prez_gop, -prez_dem)
 ```
 
+## Clean snp data
+
+```{r}
+snp_data = read_csv("./fivethirtyeight_datasets/snp.csv") %>% 
+  separate(
+    col = date,
+    into = c('month', 'day', 'year'),
+    sep = '/',
+    remove = TRUE,
+    convert = TRUE,
+    extra = 'warn',
+    fill = 'warn'
+  ) %>% 
+  relocate(year, month)
+```
 
