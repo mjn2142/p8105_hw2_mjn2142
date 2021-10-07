@@ -75,6 +75,12 @@ unemployment_data = read_csv("./fivethirtyeight_datasets/unemployment.csv") %>%
   rename(year = Year)
 ```
 
+## Join datasets
+
+```{r}
+pols_snp_joined = 
+  left_join(pols_month_data, snp_data, by = "year", "month")
+```
 
 
 
