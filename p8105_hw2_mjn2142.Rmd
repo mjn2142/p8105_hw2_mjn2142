@@ -13,7 +13,6 @@ library(tidyverse)
 ### Problem 1
 
 
-
 ```{r, message = FALSE}
 trash_wheel_data = readxl::read_excel("./new_trash_wheel.xlsx", sheet = "Mr. Trash Wheel") %>%
   janitor::clean_names() %>%
@@ -127,12 +126,16 @@ olivia_df = pivot_wider(
 Popularity of Male Names over Time
 
 ```{r}
-male_df = pivot_wider(
+male_df = filter(
   baby_names,
+  rank == "1",
+  gender == "MALE"
+) %>% 
+  pivot_wider(
   names_from = year_of_birth,
   values_from = rank
 ) %>% 
-  filter(gender == "MALE")
+  janitor::clean_names()
 ```
 
 
