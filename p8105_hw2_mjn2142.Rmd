@@ -65,7 +65,8 @@ snp_data = read_csv("./fivethirtyeight_datasets/snp.csv") %>%
   ) %>% 
   relocate(year, month, day) %>% 
     mutate(
-      month = month.abb[month]
+      month = month.abb[month],
+      year = if_else(year > 2021, year - 100, as.numeric(year))
     ) %>% 
   select(-date)
 ```
@@ -92,4 +93,13 @@ join_final =
   full_join(pols_snp_joined, unemployment_data, by = "year", "month")
 ```
 
-Dataset Discussion: The three datasets were merged by year and month, with the other columns not in common being contained in the final data set, but areas where the data do not nearly overlap have NA's listed. There are 83,256 rows and 14 columns. The first dataset contains information on political makeups of the US government during various periods of time. The second shows stock value for Standard and Poor. The third dataset contains unemployment levels across time. These datasets can be merged because they share temporal values, but the other columns are entirely different. The years range from 1947 to 2014. Important variables include GOP representatives and Democratic representatives, closing, and unemployment.
+Dataset Discussion: The three datasets were merged by year and month, with the other columns not in common being contained in the final data set, but areas where the data do not nearly overlap have NA's listed. There are 83,256 rows and 14 columns. The first dataset contains information on political makeups of the US government during various periods of time. The second shows stock value for Standard and Poor. The third dataset contains unemployment levels across time. These datasets can be merged because they share temporal values, but the other columns are entirely different. The years range from 1947 to 2015. Important variables include GOP representatives and Democratic representatives, closing, and unemployment.
+
+### Problem 3
+
+Read 
+
+```{r}
+
+```
+
