@@ -117,9 +117,27 @@ Table of "Olivia" Popularity over Time
 olivia_df = pivot_wider(
   baby_names,
   names_from = year_of_birth,
-  values_from = count
+  values_from = rank
 ) %>% 
   filter(childs_first_name == "Olivia")
+```
+
+Popularity of Male Names over Time
+
+```{r}
+male_df = pivot_wider(
+  baby_names,
+  names_from = year_of_birth,
+  values_from = rank
+) %>% 
+  filter(gender == "MALE")
+```
+
+
+Scatter Plot for Male White Non-Hispanic in 2016
+
+```{r}
+
 ```
 
 
