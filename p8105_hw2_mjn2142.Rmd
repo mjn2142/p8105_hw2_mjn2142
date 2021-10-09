@@ -114,15 +114,12 @@ baby_names = read_csv("./Popular_Baby_Names.csv") %>%
 Table of "Olivia" Popularity over Time
 
 ```{r}
-
-olivia_df = tibble(
-  birth_year = baby_names$year_of_birth,
-  gender = baby_names$gender,
-  ethnicity = baby_names$ethnicity,
-  name = (baby_names$childs_first_name = "Olivia"),
-  count = baby_names$count,
-  rank = baby_names$rank
-)
+olivia_df = pivot_wider(
+  baby_names,
+  names_from = year_of_birth,
+  values_from = count
+) %>% 
+  filter(childs_first_name == "Olivia")
 ```
 
 
