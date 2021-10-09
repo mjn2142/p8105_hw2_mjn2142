@@ -106,6 +106,24 @@ baby_names = read_csv("./Popular_Baby_Names.csv") %>%
     ethnicity = replace(ethnicity, ethnicity == "ASIAN AND PACI", "ASIAN AND PACIFIC ISLANDER"),
     ethnicity = replace(ethnicity, ethnicity == "BLACK NON HISP", "BLACK NON HISPANIC"),
     ethnicity = replace(ethnicity, ethnicity == "WHITE NON HISP", "WHITE NON HISPANIC")
-  )
+  ) %>% 
+  distinct(year_of_birth, ethnicity, childs_first_name, .keep_all = TRUE)
 ```
+
+
+Table of "Olivia" Popularity over Time
+
+```{r}
+
+olivia_df = tibble(
+  birth_year = baby_names$year_of_birth,
+  gender = baby_names$gender,
+  ethnicity = baby_names$ethnicity,
+  name = (baby_names$childs_first_name = "Olivia"),
+  count = baby_names$count,
+  rank = baby_names$rank
+)
+```
+
+
 
