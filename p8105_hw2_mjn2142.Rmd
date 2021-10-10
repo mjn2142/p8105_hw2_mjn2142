@@ -5,7 +5,7 @@ date: "10/5/2021"
 output: github_document
 ---
 
-```{r setup}
+```{r setup, message = FALSE}
 library(tidyverse)
 ```
 
@@ -14,23 +14,48 @@ library(tidyverse)
 
 
 ```{r, message = FALSE}
-trash_wheel_data = readxl::read_excel("./new_trash_wheel.xlsx", sheet = "Mr. Trash Wheel") %>%
+trash_wheel_data = readxl::read_excel("./new_trash_wheel.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N535") %>%
   janitor::clean_names() %>%
-  select(dumpster:homes_powered, -month, -year, -date) %>%
   na.omit() %>% 
   mutate(
     sports_balls = round(sports_balls, digits = 0)
   )
+
+median_data = filter(trash_wheel_data, year == "2019")
+
+median(median_data$sports_balls)
 ```
 
+Read in Precipitation Data
 
+```{r}
+twenty_eighteen_precipitation = readxl::read_excel("./new_trash_wheel.xlsx", sheet = "2018 Precipitation", range = "A2:B14") %>% 
+  janitor::clean_names() %>% 
+  add_column(
+    year = "2018"
+  )
+  
 
+twenty_nineteen_precipitation = readxl::read_excel("./new_trash_wheel.xlsx", sheet = "2019 Precipitation", range = "A2:B14") %>% 
+  janitor::clean_names() %>% 
+  add_column(
+    year = "2019"
+  )
+
+precipitation_df =
+  full_join(twenty_eighteen_precipitation, twenty_nineteen_precipitation, by = c("month" = "month", "year" = "year", "total" = "total")) %>%
+  mutate(month = month.name[month])
+
+sum(twenty_eighteen_precipitation$total)
+```
+
+The Mr. Traswheel dataset has 453 rows and 14 columns. The median number of sports balls in 2019 is 9. Important columns of data include "weight_tons", "plastic_bottles", and "homes_powered." This data gives a powerful look into the contents of dumpsters. The combined precipation dataset has 24 rows and 3 columns. The sum of totals in 2018 is 70.33. The three columns are month, total, and year. Combining the datasets allows for trends in precipitation to be seen across both months and years.
 
 ### Problem 2
 
 Cleaning pols-month data
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 pols_month_data = read_csv("./fivethirtyeight_datasets/pols-month.csv") %>% 
   separate(
     col = mon,
@@ -50,7 +75,7 @@ pols_month_data = read_csv("./fivethirtyeight_datasets/pols-month.csv") %>%
 
 Clean snp data
 
-```{r}
+```{r, message = FALSE}
 snp_data = read_csv("./fivethirtyeight_datasets/snp.csv") %>% 
   mutate(
     lubridate::mdy(date)
@@ -74,7 +99,7 @@ snp_data = read_csv("./fivethirtyeight_datasets/snp.csv") %>%
 
 Clean unemployment data
 
-```{r}
+```{r, message = FALSE}
 unemployment_data = read_csv("./fivethirtyeight_datasets/unemployment.csv") %>% 
   pivot_longer(
     Jan:Dec,
@@ -100,7 +125,7 @@ Dataset Discussion: The three datasets were merged by year and month in an inner
 
 Read in and tidy baby names data
 
-```{r}
+```{r, message = FALSE}
 baby_names = read_csv("./Popular_Baby_Names.csv") %>% 
   janitor::clean_names() %>% 
   mutate(
