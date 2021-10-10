@@ -176,7 +176,7 @@ scatterplot_df = filter(
 
 plot_male = ggplot(scatterplot_df, aes(rank, count)) + geom_point()
 
-plot_male + ggtitle(c("Popularity of Male Names in 2016")) + xlab("Rank in Popularity of Name") +ylab("Number of Children with Name")
+plot_male + ggtitle(c("Popularity of Male Names in 2016")) + xlab("Rank in Popularity of Name") + ylab("Number of Children with Name")
 ```
 
 
